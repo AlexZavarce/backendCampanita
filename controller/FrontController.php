@@ -886,7 +886,7 @@ function registrarUsuarios($cedula,
 						);
 
 						$resultado[$i] = array(
-							'Polla' => $arreglo
+							'pollas' => $arreglo
 						);
 					
 						$i++;		
