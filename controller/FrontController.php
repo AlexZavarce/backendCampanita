@@ -1264,6 +1264,78 @@ function registrarUsuarios($cedula,
 		return $tirajson;
 
 	}
+        
+    //CRUB VALIDA
+        function listarValida($start,$limit){
+			$obj = Valida::find_by_sql("SELECT * FROM validas where estatus = 1 LIMIT $start,$limit");
+			$cant = Valida::count(array("conditions" => "estatus = 1"));
+			if ($cant > 0) {
+					$i=0;
+					$tirajson='';
+					foreach ($obj as $p) {
+						$arreglo[$i]=array(	
+							'id'  => $p->id ,
+                                                        'polla'=>$this->listarPolla($p->id),
+							'nro_valida'  => $p->nro_valida,
+                                                        'primero' => $p->primero,
+                                                        'segundo' => $p->segundo,
+                                                        'tercero' => $p->tercero,
+							'estatus' => $p->estatus
+						);
+
+						$i++;
+					}
+
+						$resultado= array (
+							'success' => 'true',
+							'exito' => 'true',
+							'total' => $cant,
+							'validas' => $arreglo
+						);
+						
+						$tirajson= json_encode($resultado);
+			}
+			 else
+				$tirajson = '{ "success": "1", "exito": "1", "msg": "No hay datos!" }';
+	
+			return $tirajson;
+	}
+
+        function buscarValida($id){
+			$obj = Valida::find_by_sql("SELECT * FROM validas where estatus = 1 and id=$id");
+			$cant = Valida::count(array("conditions" => "estatus = 1"));
+			if ($cant > 0) {
+					$i=0;
+					$tirajson='';
+					foreach ($obj as $p) {
+						$arreglo[$i]=array(	
+							'id'  => $p->id ,
+                                                        'polla'=>$this->listarPolla($p->id),
+							'nro_valida'  => $p->nro_valida,
+                                                        'primero' => $p->primero,
+                                                        'segundo' => $p->segundo,
+                                                        'tercero' => $p->tercero,
+							'estatus' => $p->estatus
+						);
+
+						$i++;
+					}
+
+						$resultado= array (
+							'success' => 'true',
+							'exito' => 'true',
+							'total' => $cant,
+							'validas' => $arreglo
+						);
+						
+						$tirajson= json_encode($resultado);
+			}
+			 else
+				$tirajson = '{ "success": "1", "exito": "1", "msg": "No hay datos!" }';
+	
+			return $tirajson;
+	}
+
 
 //Funciones que retornan arreglos 
 	function listarUsuario($id){

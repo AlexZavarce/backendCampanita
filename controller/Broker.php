@@ -126,6 +126,13 @@
         elseif ($webService=='polla_jugada/buscar') {
             $id = $_REQUEST['id'];
             $tiraJson = $objServicios->buscarPollaJugadas($id);
+        }elseif($webService=='valida/todos'){
+            $start = $_REQUEST['start'];
+            $limit = $_REQUEST['limit'];
+            $tiraJson = $objServicios->listarValida($start,$limit);
+        }elseif($webService=='valida/buscar'){
+            $id = $_REQUEST['id'];
+            $tiraJson = $objServicios->buscarValida($id);
         }
         else 
      		$tiraJson = '{ "success": "true", "exito": "false", "msg": "No hay datos!" }'; 
