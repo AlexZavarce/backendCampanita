@@ -133,6 +133,9 @@
         }elseif($webService=='valida/buscar'){
             $id = $_REQUEST['id'];
             $tiraJson = $objServicios->buscarValida($id);
+        }elseif($webService=='valida/buscarPolla'){
+            $id_polla = $_REQUEST['id_polla'];
+            $tiraJson = $objServicios->buscarValidaPolla($id_polla);
         }
         else 
      		$tiraJson = '{ "success": "true", "exito": "false", "msg": "No hay datos!" }'; 
