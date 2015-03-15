@@ -130,12 +130,21 @@
             $start = $_REQUEST['start'];
             $limit = $_REQUEST['limit'];
             $tiraJson = $objServicios->listarValida($start,$limit);
-        }elseif($webService=='valida/buscar'){
-            $id = $_REQUEST['id'];
-            $tiraJson = $objServicios->buscarValida($id);
+        }elseif($webService=='valida/buscarPollaValida'){
+            $id_polla = $_REQUEST['id_polla'];
+            $nro_valida = $_REQUEST['nro_valida'];
+            $tiraJson = $objServicios->buscarValida($id_polla,$nro_valida);
         }elseif($webService=='valida/buscarPolla'){
             $id_polla = $_REQUEST['id_polla'];
             $tiraJson = $objServicios->buscarValidaPolla($id_polla);
+        }elseif ($webService=='valida/ingresar') {
+            $id_polla =$_REQUEST['id_polla'];
+            $nro_valida =$_REQUEST['nro_valida'];
+            $primero =$_REQUEST['primero'];
+            $segundo =$_REQUEST['segundo'];
+            $tercero =$_REQUEST['tercero'];
+            $estatus =$_REQUEST['estatus'];
+            $tiraJson = $objServicios->registrarValida($id_polla, $nro_valida, $primero, $segundo, $tercero, $estatus);
         }
         else 
      		$tiraJson = '{ "success": "true", "exito": "false", "msg": "No hay datos!" }'; 

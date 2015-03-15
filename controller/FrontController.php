@@ -1301,16 +1301,17 @@ function registrarUsuarios($cedula,
 			return $tirajson;
 	}
 
-        function buscarValida($id){
-			$obj = Valida::find_by_sql("SELECT * FROM validas where estatus = 1 and id=$id");
-			$cant = Valida::count(array("conditions" => "estatus = 1"));
+        function buscarValida($id_polla,$nro_valida){
+			$obj = Valida::find_by_sql("SELECT * FROM validas where id_polla=$id_polla and nro_valida=$nro_valida");
+			$cant = Valida::count(array("conditions" => "id_polla=$id_polla and nro_valida=$nro_valida"));
 			if ($cant > 0) {
 					$i=0;
 					$tirajson='';
 					foreach ($obj as $p) {
-						$arreglo[$i]=array(	
+						
+                                                $arreglo=array(	
 							'id'  => $p->id ,
-                                                        'polla'=>$this->listarPolla($p->id),
+                                                        'polla'=>$this->listarPolla($p->id_polla),
 							'nro_valida'  => $p->nro_valida,
                                                         'primero' => $p->primero,
                                                         'segundo' => $p->segundo,
@@ -1331,7 +1332,7 @@ function registrarUsuarios($cedula,
 						$tirajson= json_encode($resultado);
 			}
 			 else
-				$tirajson = '{ "success": "1", "exito": "1", "msg": "No hay datos!" }';
+				$tirajson = '{ "success": "true", "exito": "false", "msg": "No hay datos!" }';
 	
 			return $tirajson;
 	}
@@ -1370,6 +1371,30 @@ function registrarUsuarios($cedula,
 				$tirajson = '{ "success": "1", "exito": "1", "msg": "No hay datos!" }';
 	
 			return $tirajson;
+	}
+        
+        
+	function registrarValida($id_polla,$nro_valida,$primero,$segundo,$tercero,$estatus){
+		
+
+		if ($id_polla==''||$nro_valida==''||$primero==''||$segundo==''||$tercero==''||$estatus=='') 
+			$tirajson = '{ "success": "true", "exito": "true", "msg": "Error! Por Favor Llene todos los Campos" }';
+		else{
+
+			$valida = new Valida();
+			$valida->id_polla=$id_polla;
+                        $valida->nro_valida=$nro_valida;
+                        $valida->primero=$primero;
+                        $valida->segundo=$segundo;
+                        $valida->tercero=$tercero;
+			$valida->estatus=$estatus;
+
+			$valida->save();
+			$tirajson = '{ "success": "true", "exito": "true", "msg": "Valida Registrada Exitosamente!" }';
+		}
+
+		return $tirajson;
+
 	}
 
 
@@ -1488,7 +1513,7 @@ function registrarUsuarios($cedula,
 
 		$pantalla = array();
 		$grupo = array();
-		if ($cant > 0) {
+		if ($cant != 0) {
 				$i=0;
 					foreach ($obj as $p) {
 						
@@ -1537,7 +1562,7 @@ function registrarUsuarios($cedula,
 				 }
 		}
 		else
-		    $tirajson = '{ "success": "true", "exito": "false", "msg": "No hay datos!" }';
+		    $arreglo = '{ "success": "true", "exito": "false", "msg": "No hay datos!" }';
 
 		return $arreglo;
 	}
