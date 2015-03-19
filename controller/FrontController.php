@@ -507,22 +507,21 @@ class FrontController {
 
 		return $tirajson;
 	}
-
-	
-function registrarUsuarios($cedula,
-	 	                        $id_grupo,$id_cuenta,
-	 	                        $nombre,$apellido,
-	 	                        $fecha_nacimiento,
-	 	                        $codigo_area,$telefono,
-	 	                        $codigo_operadora,$celular,
-	 	                        $correo,$login,$password,
-	 	                        $foto,
-	 	                        $pregunta_secreta,$respuesta_secreta,
-	 	                        $intentos,$estatus){
+        
+function registrarUsuarios(
+	 	           $nombre,$apellido,
+	 	           $fecha_nacimiento,
+	 	           $codigo_area,$telefono,
+	 	           $codigo_operadora,$celular,
+	 	           $correo,$login,$password,
+	 	           $foto,
+	 	           $pregunta_secreta,$respuesta_secreta,
+	 	           $intentos,$estatus){
 		
 
-          if ($cedula==''||$id_grupo==''||$id_cuenta==''||$nombre==''||$apellido==''||$fecha_nacimiento==''||
-        	  $codigo_area==''||$telefono==''||$codigo_operadora==''||$celular==''||$correo==''||$login==''||
+          if ($nombre==''||$apellido==''||$fecha_nacimiento==''||
+        	  $codigo_area==''||$telefono==''||$codigo_operadora==''||$celular==''||
+                  $correo==''||$login==''||
         	  $password==''||$foto==''||$pregunta_secreta==''||$respuesta_secreta==''||$intentos=='') 
 
 	 	    $tirajson = '{ "success": "true", "exito": "true", "msg": "Error! Por Favor Llene todos los Campos" }';
@@ -530,32 +529,34 @@ function registrarUsuarios($cedula,
 	 	  else{
 	 	
 	 		$usuario = new Usuario();
-	 	   	 $usuario->cedula=$cedula;
-             $usuario->id_grupo=$id_grupo;
-             $usuario->id_cuenta=$id_cuenta;
-             $usuario->nombre=ereg_replace( '/ +/', " ", $nombre );
-             $usuario->apellido = ereg_replace( '/ +/', " ", $apellido );
-             $usuario->fecha_nacimiento=$fecha_nacimiento;
-             $usuario->codigo_area=$codigo_area;
-             $usuario->telefono=$telefono;
-             $usuario->codigo_operadora=$codigo_operadora; 
-             $usuario->celular=$celular;
-             $usuario->correo=$correo; 
-             $usuario->login=$login;
-             $usuario->password=$password;
-             $usuario->foto=$foto;
-             $usuario->pregunta_secreta = ereg_replace( '/ +/', " ", $pregunta_secreta );
-	       	 $usuario->respuesta_secreta = ereg_replace( '/ +/', " ", $respuesta_secreta );
-             $usuario->intentos=$intentos;
-             $usuario->estatus=$estatus;
-
-	 	   	$usuario->save();
+                            $usuario->nombre=ereg_replace( '/ +/', " ", $nombre );
+                            $usuario->apellido = ereg_replace( '/ +/', " ", $apellido );
+                            $usuario->fecha_nacimiento=$fecha_nacimiento;
+                            $usuario->codigo_area=$codigo_area;
+                            $usuario->telefono=$telefono;
+                            $usuario->codigo_operadora=$codigo_operadora; 
+                            $usuario->celular=$celular;
+                            $usuario->correo=$correo; 
+                            $usuario->login=$login;
+                            $usuario->password=$password;
+                            $usuario->foto= base64_encode($foto);
+                            $usuario->pregunta_secreta = ereg_replace( '/ +/', " ", $pregunta_secreta );
+                            $usuario->respuesta_secreta = ereg_replace( '/ +/', " ", $respuesta_secreta );
+                            $usuario->intentos=$intentos;
+                            $usuario->estatus=$estatus;
+                            
+   
+                                 #foto es el campo en la bd    
+                                   $usuario->save();
+                         
 	 	   	$tirajson = '{ "success": "true", "exito": "true", "msg": "Usuario Registrado Exitosamente!" }';
 	    	}
 		
 	 	return $tirajson;
 
 	 }
+
+ 
 
 
 	function actualizarUsuarios($id,$id_grupo,$id_cuenta,$nombre,$apellido,$fecha_nacimiento,$codigo_area,$telefono,$correo,$login,$password,$foto,$pregunta_secreta,$respuesta_secreta,$intentos){

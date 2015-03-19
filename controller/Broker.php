@@ -47,12 +47,10 @@
             $limit = $_REQUEST['limit'];
             $tiraJson = $objServicios->listarUsuarios($start,$limit);
         }
-        elseif ($webService=='usuario/ingresar') {
+       
+             elseif ($webService=='usuario/ingresar') {
           
-            $id = $_REQUEST['id'];
-            $cedula=$_REQUEST['cedula'];
-            $id_grupo = $_REQUEST['id_grupo'];
-            $id_cuenta = $_REQUEST['id_cuenta'];
+            
             $nombre = $_REQUEST['nombre'];
             $apellido=$_REQUEST['apellido'];
             $foto=$_REQUEST['foto'];
@@ -70,7 +68,7 @@
             $estatus = $_REQUEST['estatus'];
             
 
-            $tiraJson = $objServicios-> registrarUsuarios($cedula,$id_grupo,$id_cuenta,$nombre,$apellido,$fecha_nacimiento,$codigo_area,$telefono,$codigo_operadora,$celular,$correo,$login,$password,$foto,$pregunta_secreta,$respuesta_secreta,$intentos,$estatus);
+            $tiraJson = $objServicios-> registrarUsuarios($nombre,$apellido,$fecha_nacimiento,$codigo_area,$telefono,$codigo_operadora,$celular,$correo,$login,$password,$foto,$pregunta_secreta,$respuesta_secreta,$intentos,$estatus);
              }
         elseif ($webService=='usuario/buscar') {
             $login = $_REQUEST['login'];
