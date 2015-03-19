@@ -1347,7 +1347,7 @@ function registrarUsuarios($cedula,
 					foreach ($obj as $p) {
 						$arreglo[$i]=array(	
 							'id'  => $p->id ,
-                                                        'polla'=>$this->listarPolla($p->id),
+                                                        'polla'=>$this->listarPolla($p->id_polla),
 							'nro_valida'  => $p->nro_valida,
                                                         'primero' => $p->primero,
                                                         'segundo' => $p->segundo,
